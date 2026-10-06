@@ -72,6 +72,33 @@
         "CMAKE_BUILD_TYPE": "Debug",
         "MOTION_ENABLE_SANITIZERS": "ON"
       }
+    },
+    {
+      "name": "macos-base",
+      "hidden": true,
+      "inherits": "base",
+      "condition": { "type": "equals", "lhs": "${hostSystemName}", "rhs": "Darwin" }
+    },
+    {
+      "name": "macos-debug",
+      "displayName": "macOS Debug (Apple Clang)",
+      "inherits": "macos-base",
+      "cacheVariables": { "CMAKE_BUILD_TYPE": "Debug" }
+    },
+    {
+      "name": "macos-release",
+      "displayName": "macOS Release (Apple Clang)",
+      "inherits": "macos-base",
+      "cacheVariables": { "CMAKE_BUILD_TYPE": "Release" }
+    },
+    {
+      "name": "macos-asan",
+      "displayName": "macOS ASan + UBSan",
+      "inherits": "macos-base",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "MOTION_ENABLE_SANITIZERS": "ON"
+      }
     }
   ],
   "buildPresets": [
@@ -80,7 +107,10 @@
     { "name": "windows-asan", "configurePreset": "windows-asan" },
     { "name": "linux-debug", "configurePreset": "linux-debug" },
     { "name": "linux-release", "configurePreset": "linux-release" },
-    { "name": "linux-asan", "configurePreset": "linux-asan" }
+    { "name": "linux-asan", "configurePreset": "linux-asan" },
+    { "name": "macos-debug", "configurePreset": "macos-debug" },
+    { "name": "macos-release", "configurePreset": "macos-release" },
+    { "name": "macos-asan", "configurePreset": "macos-asan" }
   ],
   "testPresets": [
     {
@@ -94,6 +124,9 @@
     { "name": "windows-asan", "inherits": "test-base", "configurePreset": "windows-asan" },
     { "name": "linux-debug", "inherits": "test-base", "configurePreset": "linux-debug" },
     { "name": "linux-release", "inherits": "test-base", "configurePreset": "linux-release" },
-    { "name": "linux-asan", "inherits": "test-base", "configurePreset": "linux-asan" }
+    { "name": "linux-asan", "inherits": "test-base", "configurePreset": "linux-asan" },
+    { "name": "macos-debug", "inherits": "test-base", "configurePreset": "macos-debug" },
+    { "name": "macos-release", "inherits": "test-base", "configurePreset": "macos-release" },
+    { "name": "macos-asan", "inherits": "test-base", "configurePreset": "macos-asan" }
   ]
 }

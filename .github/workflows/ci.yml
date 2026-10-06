@@ -33,6 +33,9 @@ jobs:
           - name: Windows MSVC
             os: windows-latest
             preset: windows-debug
+          - name: macOS Apple Clang
+            os: macos-latest
+            preset: macos-debug
 
     steps:
       - uses: actions/checkout@v5

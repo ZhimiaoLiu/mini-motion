@@ -1,6 +1,6 @@
 # mini-motion
 
-[![CI](https://github.com/YOUR_GITHUB_USERNAME/mini-motion/actions/workflows/ci.yml/badge.svg)](https://github.com/YOUR_GITHUB_USERNAME/mini-motion/actions/workflows/ci.yml)
+[![CI](https://github.com/ZhimiaoLiu/mini-motion/actions/workflows/ci.yml/badge.svg)](https://github.com/ZhimiaoLiu/mini-motion/actions/workflows/ci.yml)
 
 A small multi-axis motion controller simulator written in modern C++ (C++23).
 
@@ -19,9 +19,10 @@ and plotted.
 
 ## Build
 
-Requirements: CMake 3.25+, Ninja, and a C++23 compiler (GCC 13+, Clang 19+, or MSVC 2022).
+Requirements: CMake 3.25+, Ninja, and a C++23 compiler (GCC 13+, Clang 19+, Apple Clang from
+Xcode 16+, or MSVC 2022).
 
-**Linux**
+**Linux / macOS** (on macOS, use `macos-debug` instead of `linux-debug`)
 
 ```sh
 cmake --preset linux-debug
@@ -29,10 +30,13 @@ cmake --build --preset linux-debug
 ctest --preset linux-debug
 ```
 
+On macOS, install the tools with `brew install cmake ninja`. In VS Code, the CMake Tools
+extension picks up the presets automatically.
+
 **Windows (Visual Studio 2022)**: open the folder (*File → Open → Folder*), choose the
 **Windows Debug (MSVC)** preset, then *Build → Build All* and run the tests from *Test Explorer*.
 
-Other presets: `*-release`, and `*-asan` (AddressSanitizer; also UBSan on Linux).
+Other presets: `*-release`, and `*-asan` (AddressSanitizer; plus UBSan on Linux and macOS).
 
 ## Project layout
 
