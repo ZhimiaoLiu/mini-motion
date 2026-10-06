@@ -1,0 +1,19 @@
+# Build output (CMake presets write to out/)
+out/
+build/
+
+# Visual Studio / VS Code
+.vs/
+.vscode/
+*.user
+
+# Personal CMake presets
+CMakeUserPresets.json
+
+# Generated data
+*.csv
+!examples/**/*.csv
+
+# OS
+.DS_Store
+Thumbs.db

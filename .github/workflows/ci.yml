@@ -1,0 +1,61 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build-and-test:
+    name: ${{ matrix.name }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: Linux GCC
+            os: ubuntu-24.04
+            preset: linux-debug
+            cc: gcc
+            cxx: g++
+          - name: Linux Clang 19
+            os: ubuntu-24.04
+            preset: linux-debug
+            cc: clang-19
+            cxx: clang++-19
+            # Clang 18 (the Ubuntu 24.04 default) cannot use libstdc++'s std::expected.
+            apt: clang-19
+          - name: Linux ASan + UBSan
+            os: ubuntu-24.04
+            preset: linux-asan
+            cc: gcc
+            cxx: g++
+          - name: Windows MSVC
+            os: windows-latest
+            preset: windows-debug
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Install CMake and Ninja
+        uses: lukka/get-cmake@latest
+
+      - name: Install extra compiler
+        if: matrix.apt
+        run: sudo apt-get update && sudo apt-get install -y ${{ matrix.apt }}
+
+      - name: Set up MSVC environment
+        if: runner.os == 'Windows'
+        uses: ilammy/msvc-dev-cmd@v1
+
+      - name: Configure
+        run: cmake --preset ${{ matrix.preset }}
+        env:
+          CC: ${{ matrix.cc }}
+          CXX: ${{ matrix.cxx }}
+
+      - name: Build
+        run: cmake --build --preset ${{ matrix.preset }}
+
+      - name: Test
+        run: ctest --preset ${{ matrix.preset }}
