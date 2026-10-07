@@ -12,11 +12,12 @@ FetchContent_MakeAvailable(googletest)
 
 include(GoogleTest)
 
-add_executable(motion_tests
+add_executable(motion_tests_runner
   version_test.cpp
+  vec_test.cpp
 )
-target_link_libraries(motion_tests PRIVATE motion::core GTest::gtest_main)
-target_compile_definitions(motion_tests PRIVATE MOTION_EXPECTED_VERSION="${PROJECT_VERSION}")
-motion_set_warnings(motion_tests)
+target_link_libraries(motion_tests_runner PRIVATE motion::core GTest::gtest_main)
+target_compile_definitions(motion_tests_runner PRIVATE MOTION_EXPECTED_VERSION="${PROJECT_VERSION}")
+motion_set_warnings(motion_tests_runner)
 
-gtest_discover_tests(motion_tests)
+gtest_discover_tests(motion_tests_runner)
